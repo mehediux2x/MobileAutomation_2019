@@ -38,7 +38,7 @@ public class MobileAPI {
 
     //Extent Report Setup
     public static ExtentReports extent;
-    public static AppiumDriver appiumDriver = null;
+    public static AppiumDriver appiumDriver=null;
     public static String platform = null;
     public static WebDriver webDriver;
     private static WebDriverWait driverWait;
@@ -62,30 +62,30 @@ public class MobileAPI {
     /*************** Reporting *****************/
 
 
-    @Parameters({"OS", "deviceName", "version", "appiumPort"})
-    @BeforeMethod
+    @Parameters({"OS", "deviceName", "version", "appiumPort","appPackage","appActivity"})
+    @BeforeMethod(alwaysRun = true)
     public static AppiumDriver getDriver(String OS, String deviceName, String version,
-                                         String appiumPort) throws IOException {
+                                         String appiumPort,String appPackage,String appActivity) throws IOException {
         platform = OS;
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
         if (OS.equalsIgnoreCase("android")) {
             cap.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
             cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
-            cap.setCapability(MobileCapabilityType.APP_PACKAGE, "com.tdbank");
-            cap.setCapability(MobileCapabilityType.APP_ACTIVITY, "com.td.dcts.android.us.app.SplashScreenActivity");
-            if (appiumDriver == null) {
-                appiumDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), cap);
+            cap.setCapability(MobileCapabilityType.APP_PACKAGE, appPackage);
+            cap.setCapability(MobileCapabilityType.APP_ACTIVITY,appActivity);
+
+                appiumDriver = new AndroidDriver(new URL("http://" + appiumPort + "/wd/hub"), cap);
             }
-        } else {
+         else {
             cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
             cap.setCapability(MobileCapabilityType.APP_PACKAGE, "com.tdbank");
             cap.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
             cap.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.IOS);
             cap.setCapability(MobileCapabilityType.APP_PACKAGE, "com.tdbank");
-            if (appiumDriver == null) {
+
                 appiumDriver = new IOSDriver(new URL("http://" + appiumPort + "/wd/hub"), cap);
-            }
+
         }
         appiumDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         return appiumDriver;
@@ -218,8 +218,9 @@ public class MobileAPI {
         return sw.toString();
     }
 
-    @AfterMethod
+   // @AfterMethod(alwaysRun = true)
     public void cleanUpApp() {
+        //appiumDriver.closeApp();
         appiumDriver.quit();
     }
 

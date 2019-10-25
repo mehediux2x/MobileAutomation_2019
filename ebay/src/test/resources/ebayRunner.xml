@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Android test suite for Pages">
+
+    <parameter name="OS" value="Android"/>
+    <parameter name="deviceName" value="Android SDK built for x86"/>
+    <parameter name="version" value="9"/>
+    <parameter name="appPackage" value="com.ebay.mobile"/>
+    <parameter name="appActivity" value="com.ebay.mobile.activities.MainActivity"/>
+    <parameter name="appiumPort" value="localhost:4723"/>
+
+    <test name="Home page" preserve-order="true">
+        <classes>
+            <class name="testCases.TestEbay"/>
+        </classes>
+    </test>
+</suite>
+
+<!--    <parameter name="OS" value="Android"/>-->
+<!--    <parameter name="deviceType" value="emulator"/>-->
+<!--    <parameter name="deviceName" value="Android SDK_built_for_x86"/>-->
+<!--&lt;!&ndash;    <parameter name="udId" value="emulator-5554"/>&ndash;&gt;-->
+<!--    <parameter name="version" value="9"/>-->
+<!--    <parameter name="appiumPort" value="localhost:4723"/>-->
+<!--&lt;!&ndash;    <parameter name="moduleName" value="mobileAutomation"/>&ndash;&gt;-->
+<!--    <parameter name="appPackage" value="com.ebay.mobile"/>-->
+<!--    <parameter name="appActivity" value="com.ebay.mobile.activities.MainActivity"/>-->
+
+<!--    <test name="Go to Home page" preserve-order="true">-->
+<!--        <classes>-->
+<!--            <class name="testCases.TestEbay"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--</suite>-->
